@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 600px;
+      }
+
+      .quote {
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: box-shadow 0.3s;
+      }
+
+      .quote:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .quote p {
+        font-size: 18px;
+        font-style: italic;
+        margin-bottom: 0;
+      }
+
+      button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Boost your mind</h1>
+      <div id="quote-container"></div>
+      <button onclick="getQuote()">Refresh</button>
+    </div>
+
+    <script>
+      function getQuote() {
+        fetch("https://api.quotable.io/random")
+          .then((response) => response.json())
+          .then((data) => {
+            const quoteContainer = document.getElementById("quote-container");
+            const quote = `
+						<div class="quote">
+							<p>${data.content}</p>
+							<p>- ${data.author}</p>
+						</div>
+					`;
+            quoteContainer.innerHTML = quote;
+          })
+          .catch((error) => console.error(error));
+      }
+      getQuote();
+    </script>
+  </body>
+</html>
